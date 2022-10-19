@@ -1,0 +1,13 @@
+#!/bin/sh
+set -e
+
+scour --help | grep Usage
+
+DEST="$AUTOPKGTEST_TMP/out.svg"
+scour -i unittests/polygon.svg -o "$DEST" 2>&1
+# should not be identical
+! cmp unittests/polygon.svg "$DEST"
+# but almost
+/usr/share/scour/cmpsvg unittests/polygon.svg "$DEST"
+# two different SVGs should compare unequal
+! /usr/share/scour/cmpsvg unittests/polygon.svg unittests/sodipodi.svg 2>&1

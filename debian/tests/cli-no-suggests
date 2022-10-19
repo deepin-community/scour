@@ -1,0 +1,15 @@
+#!/bin/sh
+set -e
+
+scour --help | grep Usage
+
+DEST="$AUTOPKGTEST_TMP/out.svg"
+scour -i unittests/polygon.svg -o "$DEST" 2>&1
+# should not be identical
+! cmp unittests/polygon.svg "$DEST"
+# cmpsvg can't work without Suggests:, should exit 0 with a warning
+OUT=$(/usr/share/scour/cmpsvg unittests/polygon.svg unittests/sodipodi.svg 2>&1 >/dev/null)
+if ! echo "$OUT" | grep -q "not installed, cannot compare"; then
+    echo "unexpected output: $OUT" >&2
+    exit 1
+fi

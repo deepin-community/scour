@@ -1,0 +1,19 @@
+#!/usr/bin/make -f
+
+%:
+	dh $@ --with python3 --buildsystem=pybuild
+
+override_dh_auto_clean:
+	rm -f debian/dh_scour.1
+	dh_auto_clean
+
+override_dh_auto_build:
+	dh_auto_build
+	pod2man debian/dh_scour debian/dh_scour.1
+
+override_dh_auto_test:
+	for p in $$(py3versions -s); do \
+	  echo "Running tests with $$p..."; \
+	  $$p ./test_css.py; \
+	  $$p ./test_scour.py; \
+	done

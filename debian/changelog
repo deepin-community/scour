@@ -1,0 +1,238 @@
+scour (0.38.2-1) unstable; urgency=medium
+
+  [ Martin Pitt ]
+  * New upstream version 0.38.2. (Closes: #975648)
+  * Bump Standards-Version to 4.5.1. No changes necessary.
+
+  [ Debian Janitor ]
+  * Set upstream metadata fields: Bug-Database, Bug-Submit, Repository, Repository-Browse.
+    Changes-By: lintian-brush
+    Fixes: lintian: upstream-metadata-file-is-missing
+    See-also: https://lintian.debian.org/tags/upstream-metadata-file-is-missing.html
+    Fixes: lintian: upstream-metadata-missing-bug-tracking
+    See-also: https://lintian.debian.org/tags/upstream-metadata-missing-bug-tracking.html
+    Fixes: lintian: upstream-metadata-missing-repository
+    See-also: https://lintian.debian.org/tags/upstream-metadata-missing-repository.html
+  * Fix field name typo in debian/copyright (X-Comment => Comment).
+    Changes-By: lintian-brush
+    Fixes: lintian: field-name-typo-in-dep5-copyright
+    See-also: https://lintian.debian.org/tags/field-name-typo-in-dep5-copyright.html
+
+ -- Martin Pitt <mpitt@debian.org>  Thu, 03 Dec 2020 06:42:22 +0100
+
+scour (0.37-4) unstable; urgency=medium
+
+  * Add autopkgtests to check scour/cmpsvg without Suggests.
+    This reproduces #943776
+  * cmpsvg: Intercept proper exception from gi.require_version.
+    If python3-gi is installed, but gir1.2-rsvg-2.0 is not, cmpsvg crashed
+    with a ValueError from `gi.require_version()` instead of exiting
+    gracefully with a warning. (Closes: #943776)
+  * Bump Standards-Version to 4.4.1. No changes necessary.
+
+ -- Martin Pitt <mpitt@debian.org>  Wed, 30 Oct 2019 22:43:38 +0000
+
+scour (0.37-3) unstable; urgency=medium
+
+  * Bump Standards-Version to 4.4.0.  No changes necessary.
+  * Drop python-scour package. Part of Python 2 removal. (Closes: #938449)
+
+ -- Martin Pitt <mpitt@debian.org>  Sat, 31 Aug 2019 11:05:06 +0000
+
+scour (0.37-2) unstable; urgency=medium
+
+  [ Jeremy Bicha ]
+  * Add Provides: dh-sequence-scour.
+    Packages can now Build-Depend on dh-sequence-scour
+    instead of scour and then drop "--with scour" from debian/rules
+    (Requires debhelper 12)
+
+  [ Martin Pitt ]
+  * Bump Standards-Version to 4.3.0. No changes necessary.
+  * Move to debhelper compat level 12.
+
+ -- Martin Pitt <mpitt@debian.org>  Sun, 13 Jan 2019 12:01:02 +0000
+
+scour (0.37-1) unstable; urgency=medium
+
+  * New upstream version 0.37 (Closes: #903004)
+  * Bump Standards-Version to 4.1.5.
+    No changes necessary.
+
+ -- Martin Pitt <mpitt@debian.org>  Wed, 01 Aug 2018 19:38:03 +0000
+
+scour (0.36-3) unstable; urgency=medium
+
+  * Move new scour package to "graphics" section (Closes: #890049)
+  * Update Vcs-* for the move to salsa.debian.org
+
+ -- Martin Pitt <mpitt@debian.org>  Sun, 25 Mar 2018 14:00:54 +0200
+
+scour (0.36-2) unstable; urgency=medium
+
+  * debian/control: Update Vcs-* for anonscm and https
+  * Bump Standards-Version to 4.1.3
+  * Split CLI and debhelper into new "scour" package.
+    The previous migration from python-scour to python3-scour caused build
+    failures and confusion with reverse build dependencies and on upgrades.
+    Put these parts into a new "scour" binary package.
+    Add a temporary scour dependency to python-scour until all reverse build
+    dependencies get updated and after the buster release. (Closes: #886203)
+
+ -- Martin Pitt <mpitt@debian.org>  Tue, 23 Jan 2018 10:21:21 +0100
+
+scour (0.36-1) unstable; urgency=medium
+
+  [ Alessio Treglia ]
+  * Use GObject introspection bindings instead of python-rsvg.
+    Thanks to Laurent Bigonville for the patch (Closes: #840181)
+  * Remove myself from the Maintainers field (Closes: #840194)
+
+  [ Martin Pitt ]
+  * New upstream version 0.36
+  * Update package description for moving to GI
+  * Bump debhelper compat to 10
+  * Fix wrong spelling of "discernible" in package description.
+    Thanks lintian.
+  * Update debian/copyright format to current spec
+  * autopkgtest: Replace obsolete $ADTMP with $AUTOPKGTEST_TMP
+  * Bump Standards-Version to 4.1.2
+  * autopkgtest: Cover CLI invocation of scour and cmpsvg helper
+  * Move dh_scour and scour CLI to python3-scour.
+    Port cmpsvg to Python 3. (Closes: #851478)
+
+ -- Martin Pitt <mpitt@debian.org>  Sat, 23 Dec 2017 15:46:30 +0100
+
+scour (0.32-2) unstable; urgency=medium
+
+  * debian/tests/module.py: Use "rsvg-convert" instead of "rsvg" to get along
+    with librsvg >= 2.40.16-1.
+  * Bump Standards-Version to 3.9.8 (no changes necessary).
+
+ -- Martin Pitt <mpitt@debian.org>  Thu, 30 Jun 2016 18:56:26 +0200
+
+scour (0.32-1) unstable; urgency=medium
+
+  * New upstream release.
+  * Run the two test scripts during package build. Add python-six build
+    dependency.
+  * Add python3-scour package. (Closes: #802323)
+  * Add autopkgtest.
+  * Install setup.py generated "scour" binary instead of simple symlink, as
+    the latter stopped working with this new upstream version.
+
+ -- Martin Pitt <mpitt@debian.org>  Thu, 07 Jan 2016 16:12:51 +0100
+
+scour (0.28-1) unstable; urgency=medium
+
+  [ Matthias Klose ]
+  * Stop building for 2.6 and using /usr/share/pyshared. (Closes: #802322)
+
+  [ Martin Pitt ]
+  * New upstream release. (Closes: #781721)
+  * Drop 1001-points_start_with_negative.patch, included upstream.
+  * Add new python-setuptools build dependency.
+  * debian/control, debian/watch: Upstream moved to github, adjust URLs.
+  * Bump Standards-Version to 3.9.6.
+  * debian/rules: Drop get-orig-source rule; gbp gets orig tarballs in a nicer
+    way.
+  * debian/rules: Move to pybuild build system, so that setup.py works with
+    current upstream version.
+  * debian/python-scour.links: Adjust to changed executable path. Make file
+    executable again in debian/rules.
+
+ -- Martin Pitt <mpitt@debian.org>  Mon, 19 Oct 2015 15:59:14 +0200
+
+scour (0.26-3) unstable; urgency=low
+
+  * Add patch from upstream's trunk to fix:
+    - Incorrect handling of comments when the file starts with a comment.
+    - Failure when parsing a polygon starting with a negative coordinate.
+
+ -- Alessio Treglia <alessio@debian.org>  Sat, 31 Dec 2011 10:31:02 +0100
+
+scour (0.26-2) unstable; urgency=low
+
+  * debian/dh_scour: Set permissions/owner of optimized files to those of
+    original file. (LP: #889837)
+  * debian/cmpsvg: Fix crash on empty SVGs. (LP: #740879)
+
+ -- Martin Pitt <mpitt@debian.org>  Mon, 14 Nov 2011 10:09:24 +0100
+
+scour (0.26-1) unstable; urgency=low
+
+  [ Alessio Treglia ]
+  * New upstream version.
+  * debian/control: Bump Standards-Version to 3.9.2 (no changes necessary).
+
+  [ Martin Pitt ]
+  * debian/dh_scour: Support *.svgz icons as well. Thanks to Felix Geyer for
+    the patch. (LP: #781810)
+
+ -- Martin Pitt <mpitt@debian.org>  Fri, 20 May 2011 08:49:57 +0200
+
+scour (0.25+bzr207-2.1) unstable; urgency=low
+
+  * Non-maintainer upload (just a rebuild to add Python 2.7 and
+    dropPython 2.5 support)
+
+ -- Piotr Ożarowski <piotr@debian.org>  Sat, 16 Apr 2011 13:00:21 +0200
+
+scour (0.25+bzr207-2) unstable; urgency=low
+
+  * debian/control: Drop python-rsvg and python-cairo from Depends to
+    Suggests, it's a too heavy build dependency, causing dependency loops.
+    Point out rationale for the Suggests in the package description.
+    (LP: #734471)
+  * debian/cmpsvg: If rsvg or cairo modules aren't available, exit
+    successfully with an error message.
+
+ -- Martin Pitt <mpitt@debian.org>  Sun, 20 Mar 2011 12:23:34 +0100
+
+scour (0.25+bzr207-1) unstable; urgency=low
+
+  * New upstream bzr snapshot:
+    - Add the option --no-renderer-workaround.
+    - Fix gradient corruption. (LP: #702423)
+    - Add option to only remove autogenerated id's. (LP: #492277)
+    - Fix Windows line ending handling. (LP: #717826)
+    - Fix occasional production of empty defs. (LP: #717254)
+    - Remove more attributes with default values. (LP: #714731)
+    - Fix wrong handling of file:// references. (LP: #708515)
+    - Delete text attributes from groups with only non-text elements.
+      (LP: #714727)
+    - Remove unnecessary text-align properties from non-text elements.
+      (LP: #714720)
+    - Fix wrong optimization of 0-length Bézier curves. (LP: #714717)
+    - Fix decimal number processing in rule_elliptical_arc(). (LP: #638764)
+    - Fix transform matrix order. (LP: #722544)
+  * Drop 01-bzr195.patch, upstream now.
+  * debian/cmpsvg: Fix computation of difference to add up the absolute
+    difference of each pixel.
+  * debian/cmpsvg: Show percentages with three digits after comma.
+  * debian/cmpsvg: Lower default treshold to 0.05%.
+
+ -- Martin Pitt <mpitt@debian.org>  Tue, 15 Mar 2011 09:28:45 +0100
+
+scour (0.25+bzr194-3) unstable; urgency=low
+
+  * Add debian/cmpsvg: Simple python script for fuzzy-comparing two SVGs. Add
+    python-rsvg and python-cairo dependencies for this.
+  * debian/python-scour.install: Install cmpsvg.
+  * debian/dh_scour: Call cmpsvg after scour, and only accept the optimized
+    file if cmpsvg succeeds. This avoids shipping broken SVGs due to scour
+    bugs. (LP: #702423)
+
+ -- Martin Pitt <mpitt@debian.org>  Fri, 11 Mar 2011 17:51:09 +0100
+
+scour (0.25+bzr194-2) unstable; urgency=low
+
+  * debian/dh_scour: Use --disable-style-to-xml option by default (LP: #690994).
+
+ -- Alessio Treglia <alessio@debian.org>  Thu, 10 Feb 2011 20:07:28 +0100
+
+scour (0.25+bzr194-1) unstable; urgency=low
+
+  * Initial release (Closes: #605358).
+
+ -- Alessio Treglia <alessio@debian.org>  Mon, 29 Nov 2010 10:32:04 +0100

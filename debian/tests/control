@@ -1,0 +1,13 @@
+Tests: cli-no-suggests
+Depends: scour
+
+# should behave the same if not all suggests are installed
+Test-Command: debian/tests/cli-no-suggests
+Depends: scour, python3-gi-cairo
+Features: test-name=cli-half-suggests
+
+Tests: cli
+Depends: scour, gir1.2-rsvg-2.0, python3-gi-cairo
+
+Test-Command: R=`readlink -f .`; cd $AUTOPKGTEST_TMP; python3 $R/debian/tests/module.py $R/unittests/polygon.svg
+Depends: python3-scour, librsvg2-bin

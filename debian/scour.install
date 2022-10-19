@@ -1,0 +1,4 @@
+usr/bin
+debian/dh_scour usr/bin
+debian/cmpsvg /usr/share/scour/
+debian/scour.pm usr/share/perl5/Debian/Debhelper/Sequence/
